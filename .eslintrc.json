@@ -1,3 +1,35 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    // 不要なカッコは消す
+    "no-extra-parens": "warn",
+    // 無駄なスペースは削除
+    "no-multi-spaces": "warn",
+    // 不要な空白行は削除
+    "no-multiple-empty-lines": ["warn", { "max": 1 }],
+    // 関数とカッコはあけない(function hoge() {/** */})
+    "func-call-spacing": ["warn", "never"],
+    // true/falseを無駄に使うな
+    "no-unneeded-ternary": "warn",
+    // セミコロンは除去
+    "semi": ["warn", "never"],
+    // 行末の空白は除去
+    "no-trailing-spaces": "warn",
+    // 文字列はシングルクオートのみ
+    "quotes": ["warn", "single"],
+    // varは禁止
+    "no-var": "error",
+    // かっこの中はスペースなし
+    "space-in-parens": ["warn", "never"],
+    // コンソールは許可
+    "no-console": "off",
+    // カンマの前後にスペース入れる
+    "comma-spacing": "warn",
+    // 配列のindexに空白を入れない
+    "computed-property-spacing": "warn",
+    // キーの空白
+    "key-spacing": "warn",
+    // キーワードの前後には適切なスペースを入れる
+    "keyword-spacing": "warn"
+  }
 }
