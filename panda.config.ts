@@ -51,10 +51,10 @@ export default defineConfig({
         shadows: {
           neumorphism: {
             dent: {
-              value: 'inset 2px 2px 5px #babecc, inset -4px -4px 10px #ffffff73',
+              value: 'inset 2px 2px 6px #babecc, inset -4px -4px 10px #ffffff73',
             },
             bump: {
-              value: '2px 2px 5px #babecc, -4px -4px 10px #ffffff73',
+              value: '2px 2px 6px #babecc, -4px -4px 10px #ffffff73',
             },
           },
         },
