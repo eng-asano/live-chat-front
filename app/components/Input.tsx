@@ -1,24 +1,43 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { MdPerson, MdLock } from 'react-icons/md'
 
 import { css } from '@/styled-system/css'
 
-export const UserIdInput = React.memo(() => {
+interface Props {
+  value: string
+  onChange: (v: string) => void
+}
+
+export const UserIdInput = React.memo(({ value, onChange }: Props) => {
+  const change = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value)
+    },
+    [onChange]
+  )
+
   return (
     <div className={styles.root}>
       <MdPerson className={styles.icon} size={24} />
-      <input type="text" className={styles.input} placeholder="User ID" />
+      <input type="text" value={value} className={styles.input} placeholder="User ID" onChange={change} />
     </div>
   )
 })
 
 UserIdInput.displayName = 'UserIdInput'
 
-export const PasswordInput = React.memo(() => {
+export const PasswordInput = React.memo(({ value, onChange }: Props) => {
+  const change = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value)
+    },
+    [onChange]
+  )
+
   return (
     <div className={styles.root}>
       <MdLock className={styles.icon} size={24} />
-      <input type="password" className={styles.input} placeholder="Password" />
+      <input type="password" value={value} className={styles.input} placeholder="Password" onChange={change} />
     </div>
   )
 })

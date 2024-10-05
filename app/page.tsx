@@ -1,9 +1,17 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
 import { UserIdInput, PasswordInput } from './components'
 import { css } from '@/styled-system/css'
 import { flex } from '@/styled-system/patterns'
 
 export default function Login() {
+  const [userId, setUserId] = useState('')
+  const [password, setPassword] = useState('')
+
+  const disabled = !(userId && password)
+
   return (
     <div className={styles.root}>
       <section className={styles.container}>
@@ -11,9 +19,11 @@ export default function Login() {
           <Image src="/live-chat.png" className={styles.icon} width={40} height={40} alt="Live Chat Icon" />
           <h1 className={styles.title}>Live&thinsp;Chat</h1>
         </div>
-        <UserIdInput />
-        <PasswordInput />
-        <button className={styles.signIn}>Sign in</button>
+        <UserIdInput value={userId} onChange={setUserId} />
+        <PasswordInput value={password} onChange={setPassword} />
+        <button className={styles.signIn} disabled={disabled}>
+          Sign in
+        </button>
       </section>
       <div className={styles.other}>
         <div className={styles.or}>or</div>
@@ -73,6 +83,16 @@ const styles = {
     _active: {
       color: 'primary.main',
       boxShadow: 'neumorphism.dent',
+    },
+    _disabled: {
+      opacity: 0.5,
+      cursor: 'auto',
+      _hover: {
+        color: 'gray.700',
+      },
+      _active: {
+        boxShadow: 'neumorphism.bump',
+      },
     },
   }),
   other: flex({
