@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { UserIdInput, PasswordInput } from './components'
 import { css } from '@/styled-system/css'
 import { flex } from '@/styled-system/patterns'
@@ -9,6 +10,12 @@ import { flex } from '@/styled-system/patterns'
 export default function Login() {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('')
+
+  const router = useRouter()
+
+  const goToRoomsPage = useCallback(() => {
+    router.push('/rooms')
+  }, [router])
 
   const disabled = !(userId && password)
 
@@ -21,7 +28,7 @@ export default function Login() {
         </div>
         <UserIdInput value={userId} onChange={setUserId} />
         <PasswordInput value={password} onChange={setPassword} />
-        <button className={styles.signIn} disabled={disabled}>
+        <button className={styles.signIn} disabled={disabled} onClick={goToRoomsPage}>
           Sign in
         </button>
       </section>
