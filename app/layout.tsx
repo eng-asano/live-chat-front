@@ -1,7 +1,7 @@
 import { Fira_Code } from 'next/font/google'
 import './globals.css'
 
-export const FiraCode = Fira_Code({
+const FiraCode = Fira_Code({
   weight: ['500', '700'],
   display: 'swap',
   subsets: ['latin'],
