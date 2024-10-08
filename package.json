@@ -35,6 +35,6 @@
     "yarn": "4.4.1"
   },
   "lint-staged": {
-    "*.{ts,tsx}": "next lint"
+    "app/*.{ts,tsx}": "next lint"
   }
 }
