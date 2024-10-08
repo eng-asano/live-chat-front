@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { MdPerson, MdLock } from 'react-icons/md'
-
+import { neumorphismDent } from '@/styled-system/recipes'
 import { css } from '@/styled-system/css'
 
 interface Props {
@@ -19,7 +19,13 @@ export const UserIdInput = React.memo(({ value, onChange }: Props) => {
   return (
     <div className={styles.root}>
       <MdPerson className={styles.icon} size={24} />
-      <input type="text" value={value} className={styles.input} placeholder="User ID" onChange={change} />
+      <input
+        type="text"
+        value={value}
+        className={`${neumorphismDent({ type: 'input' })} ${styles.input}`}
+        placeholder="User ID"
+        onChange={change}
+      />
     </div>
   )
 })
@@ -37,7 +43,13 @@ export const PasswordInput = React.memo(({ value, onChange }: Props) => {
   return (
     <div className={styles.root}>
       <MdLock className={styles.icon} size={24} />
-      <input type="password" value={value} className={styles.input} placeholder="Password" onChange={change} />
+      <input
+        type="password"
+        value={value}
+        className={`${neumorphismDent({ type: 'input' })} ${styles.input}`}
+        placeholder="Password"
+        onChange={change}
+      />
     </div>
   )
 })
@@ -61,10 +73,7 @@ const styles = {
     width: '100%',
     height: '100%',
     paddingLeft: '48px',
-    background: 'background',
     color: 'gray.600',
-    outline: 'none',
     borderRadius: '24px',
-    boxShadow: 'neumorphism.dent',
   }),
 }
