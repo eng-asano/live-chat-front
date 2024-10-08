@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { UserIdInput, PasswordInput } from './components'
 import { css } from '@/styled-system/css'
 import { flex } from '@/styled-system/patterns'
+import { neumorphismDump } from '@/styled-system/recipes'
 
 export default function Login() {
   const [userId, setUserId] = useState('')
@@ -28,13 +29,19 @@ export default function Login() {
         </div>
         <UserIdInput value={userId} onChange={setUserId} />
         <PasswordInput value={password} onChange={setPassword} />
-        <button className={styles.signIn} disabled={disabled} onClick={goToRoomsPage}>
+        <button
+          className={`${neumorphismDump({ type: 'button' })} ${styles.signIn}`}
+          disabled={disabled}
+          onClick={goToRoomsPage}
+        >
           Sign in
         </button>
       </section>
       <div className={styles.other}>
         <div className={styles.or}>or</div>
-        <Image src="/google-icon.png" className={styles.google} width={150} height={30} alt="Sign in with Google" />
+        <div className={`${neumorphismDump({ type: 'button' })} ${styles.google}`}>
+          <Image src="/google-icon.png" width={24} height={24} alt="Sign in with Google" />
+        </div>
       </div>
     </div>
   )
@@ -78,27 +85,17 @@ const styles = {
     fontWeight: 'bold',
     borderRadius: '24px',
     color: 'gray.700',
-    outline: 'none',
-    boxShadow: 'neumorphism.bump',
-    cursor: 'pointer',
     _hover: {
       color: 'primary.main',
     },
     _focus: {
       color: 'primary.main',
     },
-    _active: {
-      color: 'primary.main',
-      boxShadow: 'neumorphism.dent',
-    },
     _disabled: {
       opacity: 0.5,
       cursor: 'auto',
       _hover: {
         color: 'gray.700',
-      },
-      _active: {
-        boxShadow: 'neumorphism.bump',
       },
     },
   }),
@@ -127,9 +124,11 @@ const styles = {
       backgroundColor: 'gray.400',
     },
   }),
-  google: css({
-    width: '150px',
-    height: '30px',
-    cursor: 'pointer',
+  google: flex({
+    justify: 'center',
+    align: 'center',
+    width: '48px',
+    height: '48px',
+    borderRadius: '50%',
   }),
 }
