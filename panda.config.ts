@@ -1,18 +1,16 @@
 import { defineConfig, defineGlobalStyles } from '@pandacss/dev'
+import { neumorphismDentRecipe, neumorphismDumpRecipe } from './panda.recipe'
 
 const globalCss = defineGlobalStyles({
   'html, body': {
     fontSize: '16px',
     letterSpacing: '0.1rem',
-    color: 'gray.800',
+    color: 'gray.700',
     lineHeight: '1.5',
     background: 'background',
   },
   html: {
     '--global-font-body': 'Roboto, sans-serif',
-  },
-  h2: {
-    fontFamily: 'Oswald',
   },
 })
 
@@ -43,21 +41,15 @@ export default defineConfig({
           primary: {
             main: { value: '#0891b2' },
           },
-          background: { value: '#fff' },
+          background: { value: '#f5f5f5' },
         },
         fonts: {
           fira: { value: 'var(--font-fira-code)' },
         },
-        shadows: {
-          neumorphism: {
-            dent: {
-              value: 'inset 2px 2px 6px #babecc, inset -4px -4px 10px #ffffff73',
-            },
-            bump: {
-              value: '2px 2px 6px #babecc, -4px -4px 10px #ffffff73',
-            },
-          },
-        },
+      },
+      recipes: {
+        neumorphismDent: neumorphismDentRecipe,
+        neumorphismDump: neumorphismDumpRecipe,
       },
     },
   },
