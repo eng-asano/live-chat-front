@@ -33,6 +33,9 @@ export const neumorphismDumpRecipe = defineRecipe({
         boxShadow: '3px 3px 6px #babecc, -3px -3px 6px #fff',
         _active: {
           boxShadow: 'inset 3px 3px 6px #babecc, inset -3px -3px 6px #fff',
+          _disabled: {
+            boxShadow: '3px 3px 6px #babecc, -3px -3px 6px #fff',
+          },
         },
       },
       card: {
