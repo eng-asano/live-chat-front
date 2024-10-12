@@ -26,14 +26,16 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
+  jsxFramework: 'react',
+
   // Useful for theme customization
   theme: {
     extend: {
       breakpoints: {
         sm: '640px',
-        md: '768px',
+        md: '900px',
         lg: '1024px',
-        xl: '1280px',
+        xl: '1400px',
         '2xl': '1536px',
       },
       tokens: {
