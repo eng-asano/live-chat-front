@@ -12,6 +12,9 @@ export const neumorphismDentRecipe = defineRecipe({
       input: {
         boxShadow: 'inset 3px 3px 6px #babecc, inset -3px -3px 6px #fff',
       },
+      avatar: {
+        boxShadow: 'inset 3px 3px 6px #babecc, inset -3px -3px 6px #fff',
+      },
     },
   },
 })
