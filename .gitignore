@@ -41,8 +41,3 @@ styled-system-studio
 
 .history
 .yarn
-
-# amplify
-.amplify
-amplify_outputs*
-amplifyconfiguration*
