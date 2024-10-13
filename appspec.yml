@@ -8,15 +8,12 @@ hooks:
   ApplicationStop:
     - runas: root
       timeout: 300
-      # 既存のアプリケーションを停止
       location: scripts/application_stop.sh
   AfterInstall:
     - runas: root
       timeout: 300
-      # 必要な依存関係のインストール
       location: scripts/before_install.sh
   ApplicationStart:
     - runas: root
       timeout: 300
-      # アプリを起動
       location: scripts/application_start.sh
