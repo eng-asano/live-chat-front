@@ -1,2 +1,2 @@
-pm2 stop next-app || true
-pm2 delete next-app || true
+pm2 stop live-chat || true
+pm2 delete live-chat || true
