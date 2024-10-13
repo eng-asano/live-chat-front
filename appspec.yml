@@ -2,21 +2,21 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/live-chat
+    destination: /var/www/live-chat
 
 hooks:
   BeforeInstall:
     - runas: ec2-user
       timeout: 300
       # 必要な依存関係のインストール
-      script: /home/ec2-user/live-chat/scripts/before_install.sh
+      script: /var/www/live-chat/scripts/before_install.sh
   ApplicationStop:
     - runas: ec2-user
       timeout: 300
       # 既存のアプリケーションを停止
-      script: /home/ec2-user/live-chat/scripts/application_stop.sh
+      script: /var/www/live-chat/scripts/application_stop.sh
   ApplicationStart:
     - runas: ec2-user
       timeout: 300
       # アプリを起動
-      script: /home/ec2-user/live-chat/scripts/application_start.sh
+      script: /var/www/live-chat/scripts/application_start.sh
