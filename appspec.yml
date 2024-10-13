@@ -3,19 +3,20 @@ os: linux
 files:
   - source: ./
     destination: /var/www/live-chat
-# hooks:
-#   BeforeInstall:
-#     - runas: root
-#       timeout: 300
-#       # 必要な依存関係のインストール
-#       script: scripts/before_install.sh
-#   ApplicationStop:
-#     - runas: root
-#       timeout: 300
-#       # 既存のアプリケーションを停止
-#       script: scripts/application_stop.sh
-#   ApplicationStart:
-#     - runas: root
-#       timeout: 300
-#       # アプリを起動
-#       script: scripts/application_start.sh
+file_exists_behavior: OVERWRITE
+hooks:
+  BeforeInstall:
+    - runas: root
+      timeout: 300
+      # 必要な依存関係のインストール
+      location: scripts/before_install.sh
+  ApplicationStop:
+    - runas: root
+      timeout: 300
+      # 既存のアプリケーションを停止
+      location: scripts/application_stop.sh
+  ApplicationStart:
+    - runas: root
+      timeout: 300
+      # アプリを起動
+      location: scripts/application_start.sh
