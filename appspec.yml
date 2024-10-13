@@ -9,22 +9,14 @@ hooks:
     - runas: ec2-user
       timeout: 300
       # 必要な依存関係のインストール
-      script: |
-        cd /home/ec2-user/live-chat
-        yarn install
+      script: /home/ec2-user/live-chat/scripts/before_install.sh
   ApplicationStop:
     - runas: ec2-user
       timeout: 300
       # 既存のアプリケーションを停止
-      script: |
-        pm2 stop next-app || true
-        pm2 delete next-app || true
+      script: /home/ec2-user/live-chat/scripts/application_stop.sh
   ApplicationStart:
     - runas: ec2-user
       timeout: 300
       # アプリを起動
-      script: |
-        cd /home/ec2-user/live-chat
-        yarn build
-        pm2 start yarn --name "next-app" -- start
-        pm2 save
+      script: /home/ec2-user/live-chat/scripts/application_start.sh
