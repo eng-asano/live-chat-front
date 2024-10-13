@@ -5,16 +5,16 @@ files:
     destination: /var/www/live-chat
 file_exists_behavior: OVERWRITE
 hooks:
-  BeforeInstall:
-    - runas: root
-      timeout: 300
-      # 必要な依存関係のインストール
-      location: scripts/before_install.sh
   ApplicationStop:
     - runas: root
       timeout: 300
       # 既存のアプリケーションを停止
       location: scripts/application_stop.sh
+  BeforeInstall:
+    - runas: root
+      timeout: 300
+      # 必要な依存関係のインストール
+      location: scripts/before_install.sh
   ApplicationStart:
     - runas: root
       timeout: 300
