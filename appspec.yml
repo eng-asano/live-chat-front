@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+  - source: build.tar.gz
+    destination: /home/ec2-user/live-chat/
+
+hooks:
+  AfterInstall:
+    - runas: ec2-user
+      timeout: 300
+      script: |
+        cd /home/ec2-user/live-chat
+        tar -xzf build.tar.gz  # ビルド済みファイルを展開
+        pm2 restart next-app    # アプリを再起動
