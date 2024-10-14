@@ -7,9 +7,9 @@ file_exists_behavior: OVERWRITE
 hooks:
   ApplicationStop:
     - location: scripts/application_stop.sh
-      runas: ec2-user
+      runas: root
       timeout: 300
-  AfterInstall:
+  ApplicationStart:
     - location: scripts/application_start.sh
-      runas: ec2-user
+      runas: root
       timeout: 300

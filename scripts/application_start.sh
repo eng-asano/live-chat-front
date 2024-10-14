@@ -1,3 +1,4 @@
+#!/bin/bash
 node -v
 npm install -g yarn
 yarn install
