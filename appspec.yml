@@ -13,5 +13,3 @@ hooks:
     - location: scripts/application_start.sh
       runas: root
       timeout: 300
-      commands:
-        - ~/.nvm/versions/node/v20.17.0/bin/yarn install
