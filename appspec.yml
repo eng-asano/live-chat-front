@@ -9,11 +9,9 @@ hooks:
     - location: scripts/application_stop.sh
       runas: root
       timeout: 300
-      commands:
-        - bash scripts/application_stop.sh
   ApplicationStart:
     - location: scripts/application_start.sh
       runas: root
       timeout: 300
       commands:
-        - bash scripts/application_start.sh
+        - ~/.nvm/versions/node/v20.17.0/bin/yarn install
