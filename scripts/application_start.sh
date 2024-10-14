@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /var/www/live-chat && \
+cd /var/www/live-chat
 
-pm2 start yarn --name "live-chat" -- start && \
-pm2 save
+~/.nvm/versions/node/v20.18.0/bin/pm2 start yarn --name "live-chat" -- start
+~/.nvm/versions/node/v20.18.0/bin/pm2 save
