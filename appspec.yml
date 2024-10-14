@@ -6,7 +6,7 @@ files:
 hooks:
   ApplicationStop:
     - location: scripts/application_stop.sh
-      runas: root
+      runas: ec2-user
   ApplicationStart:
     - location: scripts/application_start.sh
-      runas: root
+      runas: ec2-user
