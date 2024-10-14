@@ -3,7 +3,6 @@ os: linux
 files:
   - source: ./
     destination: /var/www/live-chat
-file_exists_behavior: OVERWRITE
 hooks:
   ApplicationStop:
     - location: scripts/application_stop.sh
