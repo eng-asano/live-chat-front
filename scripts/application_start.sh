@@ -1,5 +1,6 @@
 #!/bin/bash
-pwd
+
+nvm -v
 # node -v
 # npm install -g yarn
 # yarn install
