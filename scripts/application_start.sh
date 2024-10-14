@@ -1,7 +1,9 @@
 #!/bin/bash
 
-nvm -v
-# node -v
+# アプリケーションのディレクトリに移動
+cd /var/www/live-chat || exit
+
+node -v
 # npm install -g yarn
 # yarn install
 # yarn build
