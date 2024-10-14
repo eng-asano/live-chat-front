@@ -9,8 +9,8 @@ nvm install 20.17.0
 
 npm install -g yarn
 yarn install
-yarn build
+# yarn build
 
-npm install -g pm2
-pm2 start yarn --name "live-chat" -- start
-pm2 save
+# npm install -g pm2
+# pm2 start yarn --name "live-chat" -- start
+# pm2 save
