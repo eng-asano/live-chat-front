@@ -16,4 +16,4 @@ artifacts:
   files:
     - 'build.zip'
     - 'appspec.yml'
-    - 'scripts'
+    - 'scripts/**'
