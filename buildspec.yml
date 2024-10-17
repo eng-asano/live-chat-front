@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20.17.0
+  pre_build:
+    commands:
+      - npm install -g yarn
+      - yarn install
+  build:
+    commands:
+      - yarn build
+      - zip -ry build.zip node_modules .next public package.json
+artifacts:
+  files:
+    - 'build.zip'
+    - 'appspec.yml'
+    - 'scripts/**'
