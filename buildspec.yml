@@ -11,7 +11,7 @@ phases:
   build:
     commands:
       - yarn build
+      - zip -ry live-chat-front.zip ./
 artifacts:
   files:
-    - '**/*'
-  discard-paths: no
+    - 'live-chat-front.zip'
