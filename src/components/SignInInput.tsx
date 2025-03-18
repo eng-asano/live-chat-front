@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react'
 import { MdPerson, MdLock } from 'react-icons/md'
-import { loginUIBase } from '@/styled-system/recipes'
-import { css } from '@/styled-system/css'
 
 interface Props {
   name: string
@@ -18,15 +16,15 @@ export const UserIdInput = React.memo(({ name, value, onChange }: Props) => {
   )
 
   return (
-    <div className={styles.root}>
-      <MdPerson className={styles.icon} size={24} />
+    <div className="relative flex w-full h-12.5">
+      <MdPerson size={24} className="absolute left-4 h-full text-gray-500" />
       <input
         type="text"
         name={name}
         value={value}
-        className={`${loginUIBase()} ${styles.input}`}
         placeholder="ID"
         onChange={change}
+        className="w-full h-full pl-12 text-gray-600 bg-white border border-solid border-gray-300 rounded-3xl"
       />
     </div>
   )
@@ -43,41 +41,18 @@ export const PasswordInput = React.memo(({ name, value, onChange }: Props) => {
   )
 
   return (
-    <div className={styles.root}>
-      <MdLock className={styles.icon} size={24} />
+    <div className="relative flex w-full h-12.5">
+      <MdLock size={24} className="absolute left-4 h-full text-gray-500" />
       <input
         type="password"
         name={name}
         value={value}
-        className={`${loginUIBase()} ${styles.input}`}
         placeholder="Password"
         onChange={change}
+        className="w-full h-full pl-12 text-gray-600 bg-white border border-solid border-gray-300 rounded-3xl"
       />
     </div>
   )
 })
 
 PasswordInput.displayName = 'PasswordInput'
-
-const styles = {
-  root: css({
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-    height: '50px',
-  }),
-  icon: css({
-    position: 'absolute',
-    left: '16px',
-    height: 'inherit',
-    color: 'gray.500',
-  }),
-  input: css({
-    width: '100%',
-    height: '100%',
-    paddingLeft: '48px',
-    color: 'gray.600',
-    bg: 'white',
-    borderRadius: '24px',
-  }),
-}

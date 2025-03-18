@@ -1,21 +1,7 @@
-'use client'
-
-import { css } from '@/styled-system/css'
-
 interface Props {
   isActive: boolean
 }
 
 export const ActivePoint = ({ isActive }: Props) => {
-  return <div className={styles.root(isActive)}></div>
-}
-
-const styles = {
-  root: (isActive: boolean) =>
-    css({
-      width: '8px',
-      height: '8px',
-      borderRadius: '50%',
-      background: isActive ? 'accent.main' : 'background.light',
-    }),
+  return <div className={`w-2 h-2 rounded-[50%] ${isActive ? 'bg-yellow-300' : 'bg-gray-300'}`}></div>
 }

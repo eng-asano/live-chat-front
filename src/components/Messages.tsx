@@ -8,9 +8,6 @@ import moment from 'moment'
 import { useLiveChat, useThumbnail, useMedia } from '@/src/hooks'
 import { formatISO8601 } from '@/src/utils/data'
 import { Message } from '@/src/types'
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
-import { separator, messageText } from '@/styled-system/recipes'
 
 interface MessagesProps {
   teamCode: string
@@ -29,9 +26,12 @@ export const Messages = memo(({ teamCode, userId }: MessagesProps) => {
   if (!thumbnails) return <></>
 
   return (
-    <div id="message-scroll" className={styles.root}>
+    <div
+      id="message-scroll"
+      className="flex w-full h-[calc(100vh-104px)] p-8 flex-col-reverse overflow-y-auto sm:h-[calc(100vh-90px)]"
+    >
       {!messages ? (
-        <div className={styles.loading}>
+        <div className="flex flex-col items-center justify-center gap-x-5 h-full">
           <DotLoader size={56} color="#0891b2" />
         </div>
       ) : (
@@ -42,9 +42,9 @@ export const Messages = memo(({ teamCode, userId }: MessagesProps) => {
           inverse={true}
           loader={undefined}
           scrollableTarget="message-scroll"
-          className={styles.scroll}
+          className="relative flex flex-col-reverse w-full max-w-320 mx-auto"
         >
-          <div className={styles.messages}>
+          <div className="flex flex-col gap-y-3 pt-2 text-gray-700 sm:gap-x-5">
             {messages.map((m, i) => (
               <Content
                 key={m.created_at}
@@ -81,8 +81,8 @@ const Content = ({ content, memberId, createdAt, prevContent, userId, thumbnails
   return (
     <>
       {date !== prevData && (
-        <div className={`${separator()} ${styles.date}`}>
-          <span>{date}</span>
+        <div className="flex items-center w-full font-gray-500 break-normal before:content-[''] before:w-full before:h-0.25 before:mr-2 before:bg-gray-300 after:content-[''] after:w-full after:h-0.25 after:ml-2 after:bg-gray-300">
+          <span className="shrink-0">{date}</span>
         </div>
       )}
       {memberId === userId ? (
@@ -106,11 +106,13 @@ const UserMessage = ({ text, createdAt }: MessageProps) => {
   const time = moment(createdAt).format('HH:mm')
 
   return (
-    <p className={`${styles.userArea}`}>
-      <time className={styles.time} datatype={createdAt}>
+    <p className="flex self-end gap-x-1 ml-8 sm:ml-15">
+      <time datatype={createdAt} className="shrink-0 self-end pb-0.5 text-sm text-gray-500">
         {time}
       </time>
-      <span className={`${messageText()} ${styles.userText}`}>{text}</span>
+      <span className="flex items-center max-w-150 px-2 py-1 leading-[1.8rem] bg-[#0891b20A] rounded-12 whitespace-pre-wrap sm:px-3 sm:py-2 min-h-8">
+        {text}
+      </span>
     </p>
   )
 }
@@ -119,9 +121,11 @@ const MemberMessage = ({ text, createdAt }: MessageProps) => {
   const time = moment(createdAt).format('HH:mm')
 
   return (
-    <p className={`${styles.memberArea}`}>
-      <span className={`${messageText()} ${styles.memberText}`}>{text}</span>
-      <time className={styles.time} datatype={createdAt}>
+    <p className="flex gap-x-1 self-baseline min-h-8 mr-10 sm:mr-15">
+      <span className="flex items-center max-w-150 ml-8 px-2 py-1 leading-[1.8rem] bg-[#0891b20A] rounded-12 whitespace-pre-wrap sm:ml-15 sm:px-3 sm:py-2">
+        {text}
+      </span>
+      <time className="shrink-0 self-end pb-0.5 text-sm text-gray-500" datatype={createdAt}>
         {time}
       </time>
     </p>
@@ -136,110 +140,18 @@ const ImageMessage = ({ text, createdAt, thumbnail }: { text: string; createdAt:
   const time = moment(createdAt).format('HH:mm')
 
   return (
-    <div className={styles.imgMessage}>
-      <div className={styles.thumbnail}>
+    <div className="flex gap-x-3">
+      <div className="shrink-0 [&>img]:rounded-[50%]">
         <Image src={thumbnail} width={size} height={size} alt="thumbnail" />
       </div>
-      <p className={styles.memberArea}>
-        <span className={messageText()}>{text}</span>
-        <time className={styles.time} datatype={createdAt}>
+      <p className="flex gap-x-1 self-baseline min-h-8 mr-10 sm:mr-15">
+        <span className="flex items-center px-2 py-1 text-lg leading-[1.8rem] bg-[#0891b20A] rounded-xl whitespace-pre-wrap sm:px-3 sm:py-2">
+          {text}
+        </span>
+        <time className="shrink-0 self-end pb-0.5 text-sm text-gray-500" datatype={createdAt}>
           {time}
         </time>
       </p>
     </div>
   )
-}
-
-const styles = {
-  root: flex({
-    w: '100%',
-    h: 'calc(100dvh - 104px)',
-    p: '32px',
-    flexDirection: 'column-reverse',
-    overflowY: 'auto',
-
-    sm: {
-      h: 'calc(100dvh - 90px)',
-    },
-  }),
-  scroll: flex({
-    flexDirection: 'column-reverse',
-    position: 'relative',
-    w: '100%',
-    maxW: '1280px',
-    m: '0 auto',
-  }),
-  messages: flex({
-    direction: 'column',
-    rowGap: '12px',
-    pt: '8px',
-    color: 'font.dark',
-
-    sm: {
-      rowGap: '20px',
-    },
-  }),
-  imgMessage: flex({
-    columnGap: '12px',
-  }),
-  thumbnail: css({
-    flexShrink: '0',
-    '& img': {
-      borderRadius: '50%',
-    },
-  }),
-  userArea: flex({
-    alignSelf: 'flex-end',
-    columnGap: '4px',
-    ml: '42px',
-
-    sm: {
-      ml: '60px',
-    },
-  }),
-  userText: css({
-    minH: '32px',
-    bgColor: 'message.user',
-  }),
-  memberArea: flex({
-    columnGap: '4px',
-    alignSelf: 'baseline',
-    minH: '32px',
-    mr: '42px',
-
-    sm: {
-      mr: '60px',
-    },
-  }),
-  memberText: flex({
-    align: 'center',
-    ml: '42px',
-
-    sm: {
-      ml: '60px',
-    },
-  }),
-  date: css({
-    '& span': {
-      flexShrink: '0',
-    },
-  }),
-  time: css({
-    flexShrink: '0',
-    alignSelf: 'flex-end',
-    pb: '2px',
-    fontSize: '0.8rem',
-    color: 'gray.500',
-
-    sm: {
-      fontSize: '0.9rem',
-    },
-  }),
-  loading: flex({
-    direction: 'column',
-    justify: 'center',
-    align: 'center',
-    rowGap: '20px',
-    h: '100%',
-  }),
 }

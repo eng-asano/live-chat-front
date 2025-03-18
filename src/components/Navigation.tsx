@@ -6,7 +6,6 @@ import { activeNavAtom } from '@/src/store'
 import { signOut } from '@/src/actions/auth'
 import { useClient, useMedia } from '@/src/hooks'
 import { IconButton } from '@/src/components'
-import { flex } from '@/styled-system/patterns'
 
 export const Navigation = () => {
   const [activeNav, setActiveNav] = useAtom(activeNavAtom)
@@ -26,27 +25,13 @@ export const Navigation = () => {
   const isChatActive = !isSP || activeNav === 'chat'
 
   return (
-    <nav className={styles.root}>
+    <nav className="flex justify-evenly mt-auto py-4 border-t border-solid border-gray-200">
       <IconButton icon="chat" isActive={isChatActive} onClick={switchToChat}>
         Chat
       </IconButton>
-      <form className={styles.form} action={signOut}>
+      <form className="flex flex-col justify-center my-auto" action={signOut}>
         <IconButton icon="sign-out">Sign Out</IconButton>
       </form>
     </nav>
   )
-}
-
-const styles = {
-  root: flex({
-    justifyContent: 'space-evenly',
-    mt: 'auto',
-    p: '12px 0',
-    borderTop: '1px solid #ececec',
-  }),
-  form: flex({
-    flexDirection: 'column',
-    justifyContent: 'center',
-    margin: 'auto 0',
-  }),
 }

@@ -2,7 +2,6 @@
 
 import { memo } from 'react'
 import { MdChat, MdLogout } from 'react-icons/md'
-import { flex } from '@/styled-system/patterns'
 
 interface Props {
   children: React.ReactNode
@@ -13,7 +12,10 @@ interface Props {
 
 export const IconButton = memo(({ children, icon, isActive, onClick }: Props) => {
   return (
-    <button className={styles.btn(isActive)} onClick={onClick}>
+    <button
+      className={`flex flex-col justify-center items-center gap-y-0.5 w-21 h-13 text-xs font-bold rounded-xl ${isActive ? 'bg-primary-dark' : 'bg-primary'} hover:bg-primary-dark focus:bg-primary-dark focus:outline-none`}
+      onClick={onClick}
+    >
       {icon === 'chat' && <MdChat size={24} color="#fff" />}
       {icon === 'sign-out' && <MdLogout size={24} color="#fff" />}
       {children}
@@ -22,26 +24,3 @@ export const IconButton = memo(({ children, icon, isActive, onClick }: Props) =>
 })
 
 IconButton.displayName = 'IconButton'
-
-const styles = {
-  btn: (isActive?: boolean) =>
-    flex({
-      direction: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      rowGap: '2px',
-      w: '84px',
-      h: '52px',
-      fontSize: '0.85rem',
-      fontWeight: 'bold',
-      borderRadius: '12px',
-      bgColor: isActive ? 'primary.dark' : 'primary.main',
-      _hover: {
-        bgColor: 'primary.dark',
-      },
-      _focus: {
-        bgColor: 'primary.dark',
-        outline: 'none',
-      },
-    }),
-}

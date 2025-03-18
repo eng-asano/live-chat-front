@@ -1,8 +1,7 @@
 import { redirect } from 'next/navigation'
 import { verifyIdToken, getUserInfo, getMembersInfo } from '@/src/actions/auth'
 import { Profile, Members, Navigation } from '@/src/components'
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
+import { fira } from '@/src/utils/font'
 
 interface Props {
   children: React.ReactNode
@@ -22,57 +21,16 @@ export default async function RoomsLayout({ children }: Readonly<Props>) {
   const members = await getMembersInfo()
 
   return (
-    <div className={styles.root}>
-      <div className={styles.side}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Live&thinsp;Chat</h1>
-        </header>
+    <div className="flex animate-fade-in">
+      <section className="flex flex-col shrink-0 w-full min-w-80 h-dvh p-8 pb-0 text-white sm:shrink">
+        <h1 className={`${fira.className} text-3xl font-bold text-center`}>Live&thinsp;Chat</h1>
         <Profile />
-        <hr className={styles.separator} />
-        <h2 className={styles.subTitle}>Members</h2>
+        <hr className="my-6 border-gray-100" />
+        <h2 className="text-lg font-bold">Members</h2>
         <Members teamCode={teamCode} userId={userId} members={members} />
         <Navigation />
-      </div>
+      </section>
       {children}
     </div>
   )
-}
-
-const styles = {
-  root: flex({
-    animation: 'fadeIn 0.5s ease-in',
-  }),
-  side: flex({
-    direction: 'column',
-    flexShrink: '0',
-    w: '100%',
-    minW: '320px',
-    h: '100dvh',
-    p: '32px 32px 0',
-    color: '#fff',
-
-    sm: {
-      flexShrink: '1',
-    },
-  }),
-  header: flex({
-    justifyContent: 'center',
-    alignItems: 'center',
-    columnGap: '8px',
-  }),
-  title: css({
-    fontFamily: 'fira',
-    fontSize: '2rem',
-    fontWeight: '700',
-    textAlign: 'center',
-    lineHeight: '1.5rem',
-  }),
-  subTitle: css({
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-  }),
-  separator: css({
-    margin: '24px 0',
-    borderColor: '#ececec',
-  }),
 }

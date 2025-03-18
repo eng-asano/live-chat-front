@@ -3,10 +3,9 @@
 import { useCallback } from 'react'
 import { useAtom } from 'jotai'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
-import { activeNavAtom, ActiveNav } from '@/src/store'
+import { activeNavAtom } from '@/src/store'
 import { Messages, MessageInput } from '@/src/components'
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
+import { fira } from '@/src/utils/font'
 
 interface Props {
   teamCode: string
@@ -21,77 +20,23 @@ export const Chat = ({ teamCode, userId }: Props) => {
   }, [setActiveNav])
 
   return (
-    <div className={styles.root(activeNav)}>
-      <header className={styles.header}>
+    <div
+      className={`relative shrink-0 w-full bg-white transition-transform ${activeNav === 'chat' ? '-translate-x-full' : 'translate-x-full'} duration-500 ease-in-out sm:w-[calc(100%-320px)] sm:translate-x-0`}
+    >
+      <header className="flex items-center h-10.5 px-4 shadow-md sm:hidden sm:h-12">
         <button onClick={closeChat}>
-          <MdKeyboardArrowLeft className={styles.icon} size={40} />
+          <MdKeyboardArrowLeft className="text-primary" size={40} />
         </button>
-        <h1 className={styles.title}>Live&thinsp;Chat</h1>
+        <h1 className={`${fira.className} w-full mr-10 text-primary text-2xl font-bold text-center`}>
+          Live&thinsp;Chat
+        </h1>
       </header>
       <Messages teamCode={teamCode} userId={userId} />
-      <div className={styles.shadow}>
-        <div className={styles.input}>
+      <div className="absolute top-auto right-0 bottom-0 left-0 bg-white shadow-[6px_10px_16px]">
+        <div className="w-[calc(100%-64px)] max-w-320 mx-auto py-3 sm:py-6">
           <MessageInput teamCode={teamCode} userId={userId} />
         </div>
       </div>
     </div>
   )
-}
-
-const styles = {
-  root: (activeNav: ActiveNav) =>
-    css({
-      pos: 'relative',
-      flexShrink: '0',
-      w: '100%',
-      bg: 'white',
-      translate: activeNav === 'chat' ? '-100% 0' : '100% 0',
-      transition: 'translate 0.5s ease-in-out',
-
-      sm: {
-        w: 'calc(100% - 320px)',
-        translate: '0 0',
-      },
-    }),
-  shadow: css({
-    position: 'absolute',
-    inset: 'auto 0 0 0',
-    bgColor: '#fff',
-    boxShadow: '6px 10px 16px',
-    boxShadowColor: 'boxShadow.main',
-  }),
-  input: css({
-    w: 'calc(100% - 64px)',
-    maxW: '1280px',
-    m: '0 auto',
-    p: '12px 0',
-
-    sm: {
-      p: '24px 0',
-    },
-  }),
-  header: flex({
-    align: 'center',
-    h: '42px',
-    p: '0 16px',
-    boxShadow: '6px -6px 16px',
-    boxShadowColor: 'boxShadow.main',
-
-    sm: {
-      display: 'none',
-      h: '48px',
-    },
-  }),
-  title: css({
-    w: '100%',
-    mr: '40px',
-    color: 'primary.main',
-    fontFamily: 'fira',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  }),
-  icon: css({
-    color: 'primary.main',
-  }),
 }
