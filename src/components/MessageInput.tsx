@@ -5,8 +5,6 @@ import { createPortal } from 'react-dom'
 import { MdSend, MdHighlightOff } from 'react-icons/md'
 import * as Toast from '@radix-ui/react-toast'
 import { useLiveChat, useClient, useMedia } from '@/src/hooks'
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
 
 interface Props {
   teamCode: string
@@ -56,15 +54,18 @@ export const MessageInput = memo(({ teamCode, userId }: Props) => {
   const baseHeight = isSP ? 36 : 42
 
   return (
-    <div className={styles.root}>
+    <div className="flex">
       <textarea
-        className={styles.textarea}
+        className="resize-none w-full p-2 text-lg leading-[1.6rem] bg-gray-100 rounded-l outline-none overflow-hidden sm:p-3 sm:leading-[1.5rem]"
         style={{ height: baseHeight + 14 * (lineLength - 1) }}
         value={input}
         onChange={changeInput}
         placeholder="Send a message"
       />
-      <button className={styles.btn} disabled={input.trim() === ''}>
+      <button
+        disabled={input.trim() === ''}
+        className="p-1.5 bg-gray-100 rounded-l outline-primary sm:p-2 [&>svg]:text-primary disabled:[&>svg]:text-gray-400"
+      >
         <MdSend size={24} onClick={sendMessage} />
       </button>
       {isClient &&
@@ -72,15 +73,15 @@ export const MessageInput = memo(({ teamCode, userId }: Props) => {
           <Toast.Provider swipeDirection="right">
             <Toast.Root
               open={openToast}
-              className={styles.toast.root}
               defaultOpen={false}
               duration={2000}
               onOpenChange={closeToast}
+              className="flex items-center gap-x-2 h-15 p-2 font-bold bg-white border-l-4 border-red-500 rounded-sm shadow-lg data-[state=open]:animate-toast-in data-[state=closed]:animate-toast-out"
             >
-              <MdHighlightOff size={28} className={styles.toast.icon} />
+              <MdHighlightOff size={28} className="text-red-500" />
               <Toast.Description>{error}</Toast.Description>
             </Toast.Root>
-            <Toast.Viewport className={styles.toast.viewport} />
+            <Toast.Viewport className="fixed bottom-5 right-5 min-w-80 z-10" />
           </Toast.Provider>,
           document.body
         )}
@@ -89,76 +90,3 @@ export const MessageInput = memo(({ teamCode, userId }: Props) => {
 })
 
 MessageInput.displayName = 'MessageInput'
-
-const styles = {
-  root: flex({}),
-  textarea: css({
-    resize: 'none',
-    w: '100%',
-    p: '8px',
-    fontSize: '1.2rem',
-    lineHeight: '1.6rem',
-    bgColor: 'background.light',
-    borderRadius: '8px 0 0 8px',
-    outline: 'none',
-    overflow: 'hidden',
-
-    sm: {
-      p: '12px',
-      lineHeight: '1.5rem',
-    },
-  }),
-  btn: css({
-    p: '6px',
-    bgColor: 'background.light',
-    borderRadius: '0 8px 8px 0',
-    outlineColor: 'primary.main',
-
-    sm: {
-      p: '8px',
-    },
-
-    '& svg': {
-      color: 'primary.main',
-    },
-
-    _disabled: {
-      '& svg': {
-        color: 'gray.400',
-      },
-    },
-  }),
-  toast: {
-    viewport: css({
-      position: 'fixed',
-      bottom: '20px',
-      right: '20px',
-      minW: '320px',
-      zIndex: '10',
-    }),
-    root: flex({
-      align: 'center',
-      columnGap: '8px',
-      ml: '20px',
-      h: '60px',
-      p: '8px',
-      fontWeight: 'bold',
-      lineHeight: '1.4rem',
-      bgColor: '#fff',
-      borderLeftWidth: '4px',
-      borderColor: 'error.main',
-      borderRadius: '4px',
-      boxShadow: '0px 10px 20px',
-      boxShadowColor: 'boxShadow.main',
-      '&[data-state="open"]': {
-        animation: 'toastIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-      },
-      '&[data-state="closed"]': {
-        animation: 'toastOut 0.5s ease-in',
-      },
-    }),
-    icon: css({
-      color: 'error.main',
-    }),
-  },
-}

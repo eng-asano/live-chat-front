@@ -8,9 +8,6 @@ import { useActionStateCompat } from '@strozw/use-action-state-compat'
 import { UserIdInput, PasswordInput, TeamCodeSelect } from '@/src/components'
 import { signIn } from '@/src/actions/auth'
 import { useClient } from '@/src/hooks'
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
-import { loginUIBase } from '@/styled-system/recipes'
 
 export const SignInForm = () => {
   const [res, formAction, isPending] = useActionStateCompat(signIn, undefined)
@@ -39,11 +36,15 @@ export const SignInForm = () => {
   const disabled = teamCode === '' || userId === '' || password === '' || isPending || error !== undefined
 
   return (
-    <form className={styles.form} action={formAction}>
+    <form className="flex flex-col items-center gap-y-9" action={formAction}>
       <TeamCodeSelect name="teamcode" value={teamCode} onChange={setTeamCode} />
       <UserIdInput name="userid" value={userId} onChange={setUserId} />
       <PasswordInput name="password" value={password} onChange={setPassword} />
-      <button type="submit" className={`${loginUIBase()} ${styles.signIn}`} disabled={disabled}>
+      <button
+        type="submit"
+        className="w-50 h-12 text-lg text-gray-500 font-bold bg-white border border-solid border-gray-200 rounded-3xl outline-none hover:text-primary focus:text-primary disabled:opacity-50 disabled:cursor-auto disabled:hover:text-gray-500"
+        disabled={disabled}
+      >
         Sign In
       </button>
       {isClient &&
@@ -51,76 +52,18 @@ export const SignInForm = () => {
           <Toast.Provider swipeDirection="right">
             <Toast.Root
               open={openToast}
-              className={styles.toast.root}
+              className="flex items-center gap-x-2 h-15 p-2 font-bold bg-white border-l-4 border-red-500 rounded-sm shadow-lg data-[state=open]:animate-toast-in data-[state=closed]:animate-toast-out"
               defaultOpen={false}
               duration={2000}
               onOpenChange={closeToast}
             >
-              <MdHighlightOff size={28} color="#f22911" />
+              <MdHighlightOff size={28} className="text-red-500" />
               <Toast.Description>{error}</Toast.Description>
             </Toast.Root>
-            <Toast.Viewport className={styles.toast.viewport} />
+            <Toast.Viewport className="fixed bottom-5 right-5 min-w-80 z-10" />
           </Toast.Provider>,
           document.body
         )}
     </form>
   )
-}
-
-const styles = {
-  form: flex({
-    direction: 'column',
-    align: 'center',
-    rowGap: '36px',
-  }),
-  signIn: css({
-    w: '200px',
-    h: '50px',
-    fontSize: '1.125rem',
-    fontWeight: 'bold',
-    bg: 'white',
-    borderRadius: '24px',
-    color: 'gray.700',
-    _hover: {
-      color: 'primary.main',
-    },
-    _focus: {
-      color: 'primary.main',
-    },
-    _disabled: {
-      opacity: '0.5',
-      cursor: 'auto',
-      _hover: {
-        color: 'gray.700',
-      },
-    },
-  }),
-  toast: {
-    viewport: css({
-      position: 'fixed',
-      bottom: '20px',
-      right: '20px',
-      minW: '320px',
-      zIndex: '10',
-    }),
-    root: flex({
-      align: 'center',
-      columnGap: '8px',
-      h: '60px',
-      p: '8px',
-      fontWeight: 'bold',
-      bgColor: '#fff',
-      borderLeftWidth: '4px',
-      borderColor: 'error.main',
-      borderRadius: '4px',
-      boxShadow: '0px 10px 20px',
-      boxShadowColor: 'boxShadow.main',
-      '&[data-state="open"]': {
-        animation: 'toastIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-      },
-      '&[data-state="closed"]': {
-        animation: 'toastOut 0.5s ease-in',
-      },
-    }),
-  },
 }

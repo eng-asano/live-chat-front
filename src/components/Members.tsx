@@ -5,8 +5,6 @@ import Image from 'next/image'
 import { ActivePoint } from '@/src/components'
 import { useLiveChat, useThumbnail } from '@/src/hooks'
 import { UserInfo } from '@/src/types/cognito'
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
 
 interface MembersProps {
   teamCode: string
@@ -33,7 +31,7 @@ export const Members = memo(({ teamCode, userId, members }: MembersProps) => {
   if (!thumbnails) return <></>
 
   return (
-    <div className={styles.root}>
+    <div className="flex flex-col gap-y-8 mt-6 -mr-3 pb-3 pr-3 overflow-y-auto">
       {sortedMembers.map((m) => (
         <Member
           key={m['cognito:username']}
@@ -56,55 +54,21 @@ interface MemberProps {
 
 const Member = ({ info, img, isActive }: MemberProps) => {
   return (
-    <div className={styles.member}>
-      <Image src={img} width={48} height={48} alt="member thumbnail" className={styles.thumbnail} />
-      <section className={styles.info}>
-        <div className={styles.part}>
+    <div className="flex gap-x-3">
+      <Image
+        src={img}
+        width={48}
+        height={48}
+        className="shrink-0 border-2 border-solid border-white rounded-[50%]"
+        alt="member thumbnail"
+      />
+      <section className="flex flex-col gap-y-1 w-full font-bold">
+        <div className="flex justify-between items-center">
           <h3>{info.name}</h3>
           <ActivePoint isActive={isActive} />
         </div>
-        <span className={styles.memo}>{info['custom:post']}</span>
+        <span className="text-sm">{info['custom:post']}</span>
       </section>
     </div>
   )
-}
-
-const styles = {
-  root: flex({
-    direction: 'column',
-    rowGap: '32px',
-    mt: '24px',
-    mr: '-12px',
-    pb: '12px',
-    pr: '12px',
-    overflowY: 'auto',
-  }),
-  member: flex({
-    columnGap: '12px',
-  }),
-  thumbnail: css({
-    flexShrink: '0',
-    border: '2px solid #fff',
-    borderRadius: '50%',
-  }),
-  info: flex({
-    direction: 'column',
-    rowGap: '8px',
-    w: '100%',
-    fontWeight: 'bold',
-  }),
-  part: flex({
-    justify: 'space-between',
-    align: 'center',
-    columnGap: '8px',
-  }),
-  memo: css({
-    fontSize: '0.9rem',
-  }),
-  point: css({
-    w: '8px',
-    h: '8px',
-    borderRadius: '50%',
-    bg: 'accent.main',
-  }),
 }
