@@ -13,7 +13,6 @@ interface Props {
 export const MessageInput = memo(({ teamCode, userId }: Props) => {
   const [input, setInput] = useState('')
   const [lineLength, setLineLength] = useState(1)
-  const [openToast, setOpenToast] = useState(false)
   const [error, setError] = useState<string>()
 
   const { isClient } = useClient()
@@ -25,7 +24,6 @@ export const MessageInput = memo(({ teamCode, userId }: Props) => {
 
     if (res?.error) {
       setError(res.error)
-      setOpenToast(true)
       return
     }
 
@@ -60,7 +58,7 @@ export const MessageInput = memo(({ teamCode, userId }: Props) => {
       >
         <MdSend size={24} onClick={sendMessage} />
       </button>
-      <Snackbar open={openToast} text={error} setOpen={setOpenToast} />
+      <Snackbar text={error} />
     </div>
   )
 })

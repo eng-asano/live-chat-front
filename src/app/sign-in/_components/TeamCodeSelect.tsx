@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import * as Select from '@radix-ui/react-select'
 import { MdGroup, MdExpandMore } from 'react-icons/md'
 
@@ -8,7 +7,7 @@ interface Props {
   onChange: (v: string) => void
 }
 
-export const TeamCodeSelect = memo(({ name, value, onChange }: Props) => {
+export const TeamCodeSelect = ({ name, value, onChange }: Props) => {
   return (
     <Select.Root name={name} value={value} onValueChange={onChange}>
       <Select.Trigger className="flex items-center w-full h-12.5 bg-white border border-solid border-gray-300 rounded-3xl outline-none">
@@ -40,6 +39,4 @@ export const TeamCodeSelect = memo(({ name, value, onChange }: Props) => {
       </Select.Portal>
     </Select.Root>
   )
-})
-
-TeamCodeSelect.displayName = 'TeamCodeSelect'
+}

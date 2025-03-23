@@ -1,4 +1,3 @@
-import { useCallback, memo } from 'react'
 import { MdPerson, MdLock } from 'react-icons/md'
 
 interface Props {
@@ -7,14 +6,7 @@ interface Props {
   onChange: (v: string) => void
 }
 
-export const UserIdInput = memo(({ name, value, onChange }: Props) => {
-  const change = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.value)
-    },
-    [onChange]
-  )
-
+export const UserIdInput = ({ name, value, onChange }: Props) => {
   return (
     <div className="relative flex w-full h-12.5">
       <MdPerson size={24} className="absolute left-4 h-full text-gray-500" />
@@ -23,23 +15,14 @@ export const UserIdInput = memo(({ name, value, onChange }: Props) => {
         name={name}
         value={value}
         placeholder="ID"
-        onChange={change}
+        onChange={(e) => onChange(e.target.value)}
         className="w-full h-full pl-12 text-gray-600 bg-white border border-solid border-gray-300 rounded-3xl"
       />
     </div>
   )
-})
+}
 
-UserIdInput.displayName = 'UserIdInput'
-
-export const PasswordInput = memo(({ name, value, onChange }: Props) => {
-  const change = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.value)
-    },
-    [onChange]
-  )
-
+export const PasswordInput = ({ name, value, onChange }: Props) => {
   return (
     <div className="relative flex w-full h-12.5">
       <MdLock size={24} className="absolute left-4 h-full text-gray-500" />
@@ -48,11 +31,9 @@ export const PasswordInput = memo(({ name, value, onChange }: Props) => {
         name={name}
         value={value}
         placeholder="Password"
-        onChange={change}
+        onChange={(e) => onChange(e.target.value)}
         className="w-full h-full pl-12 text-gray-600 bg-white border border-solid border-gray-300 rounded-3xl"
       />
     </div>
   )
-})
-
-PasswordInput.displayName = 'PasswordInput'
+}

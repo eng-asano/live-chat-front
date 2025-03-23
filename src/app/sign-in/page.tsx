@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { verifyIdToken } from '@/src/actions/auth'
-import { Form } from './_components/Form'
+import { Form } from './_containers/Form'
 import { fira } from '@/src/utils/font'
 
 export default async function Login() {
