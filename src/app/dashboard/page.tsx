@@ -1,6 +1,6 @@
 import { getUserInfo } from '@/src/actions/auth'
+import { Header } from './_containers/Header'
 import { Container } from './_components/Container'
-import { Header } from './_components/Container/Header'
 import { MessageList } from './_components/MessageList'
 
 export default async function Rooms() {

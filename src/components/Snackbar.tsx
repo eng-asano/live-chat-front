@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { MdHighlightOff } from 'react-icons/md'
 import * as Toast from '@radix-ui/react-toast'
@@ -6,12 +6,17 @@ import { useClient } from '@/src/hooks'
 
 interface Props {
   text?: string
-  open: boolean
-  setOpen: (open: boolean) => void
 }
 
-export const Snackbar = memo(({ text, open, setOpen }: Props) => {
+export const Snackbar = memo(({ text }: Props) => {
+  const [open, setOpen] = useState(false)
+
   const { isClient } = useClient()
+
+  useEffect(() => {
+    if (!text) return
+    setOpen(true)
+  }, [text, setOpen])
 
   if (!isClient) return <></>
 
