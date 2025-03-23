@@ -1,8 +1,7 @@
 'use client'
 
 import { memo } from 'react'
-import Image from 'next/image'
-import { ActivePoint } from '@/src/components'
+import { Member } from './Member'
 import { useLiveChat, useThumbnail } from '@/src/hooks'
 import { UserInfo } from '@/src/types/cognito'
 
@@ -12,7 +11,7 @@ interface MembersProps {
   members: UserInfo[]
 }
 
-export const Members = memo(({ teamCode, userId, members }: MembersProps) => {
+export const MemberList = memo(({ teamCode, userId, members }: MembersProps) => {
   const { activeUserIds } = useLiveChat(teamCode, userId)
 
   const { thumbnails } = useThumbnail(teamCode)
@@ -44,31 +43,4 @@ export const Members = memo(({ teamCode, userId, members }: MembersProps) => {
   )
 })
 
-Members.displayName = 'Members'
-
-interface MemberProps {
-  info: UserInfo
-  img: string
-  isActive: boolean
-}
-
-const Member = ({ info, img, isActive }: MemberProps) => {
-  return (
-    <div className="flex gap-x-3">
-      <Image
-        src={img}
-        width={48}
-        height={48}
-        className="shrink-0 border-2 border-solid border-white rounded-[50%]"
-        alt="member thumbnail"
-      />
-      <section className="flex flex-col gap-y-1 w-full font-bold">
-        <div className="flex justify-between items-center">
-          <h3>{info.name}</h3>
-          <ActivePoint isActive={isActive} />
-        </div>
-        <span className="text-sm">{info['custom:post']}</span>
-      </section>
-    </div>
-  )
-}
+MemberList.displayName = 'MemberList'

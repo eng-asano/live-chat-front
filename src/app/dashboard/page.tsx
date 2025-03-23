@@ -1,5 +1,7 @@
 import { getUserInfo } from '@/src/actions/auth'
-import { Chat } from '@/src/components'
+import { Container } from './_components/Container'
+import { Header } from './_components/Container/Header'
+import { MessageList } from './_components/MessageList'
 
 export default async function Rooms() {
   const user = await getUserInfo()
@@ -8,5 +10,10 @@ export default async function Rooms() {
 
   if (!teamCode || !userId) return <></>
 
-  return <Chat teamCode={teamCode} userId={userId} />
+  return (
+    <Container>
+      <Header />
+      <MessageList teamCode={teamCode} userId={userId} />
+    </Container>
+  )
 }

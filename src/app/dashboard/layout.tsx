@@ -1,6 +1,9 @@
 import { redirect } from 'next/navigation'
 import { verifyIdToken, getUserInfo, getMembersInfo } from '@/src/actions/auth'
-import { Profile, Members, Navigation } from '@/src/components'
+import { Profile } from './_components/Profile'
+import { MemberList } from './_components/MemberList'
+import { Navigation } from './_components/Navigation'
+import { SignOut } from './_components/Navigation/SignOut'
 import { fira } from '@/src/utils/font'
 
 interface Props {
@@ -27,8 +30,10 @@ export default async function RoomsLayout({ children }: Readonly<Props>) {
         <Profile />
         <hr className="my-6 border-gray-100" />
         <h2 className="text-lg font-bold">Members</h2>
-        <Members teamCode={teamCode} userId={userId} members={members} />
-        <Navigation />
+        <MemberList teamCode={teamCode} userId={userId} members={members} />
+        <Navigation>
+          <SignOut />
+        </Navigation>
       </section>
       {children}
     </div>

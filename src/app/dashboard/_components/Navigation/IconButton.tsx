@@ -1,5 +1,3 @@
-'use client'
-
 import { memo } from 'react'
 import { MdChat, MdLogout } from 'react-icons/md'
 

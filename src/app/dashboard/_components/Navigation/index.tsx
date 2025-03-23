@@ -1,22 +1,20 @@
 'use client'
 
-import { useCallback } from 'react'
 import { useAtom } from 'jotai'
 import { activeNavAtom } from '@/src/store'
-import { signOut } from '@/src/actions/auth'
 import { useClient, useMedia } from '@/src/hooks'
-import { IconButton } from '@/src/components'
+import { IconButton } from './IconButton'
 
-export const Navigation = () => {
+interface Props {
+  children: React.ReactNode
+}
+
+export const Navigation = ({ children }: Props) => {
   const [activeNav, setActiveNav] = useAtom(activeNavAtom)
 
   const { isClient } = useClient()
 
   const { isSP } = useMedia()
-
-  const switchToChat = useCallback(() => {
-    setActiveNav('chat')
-  }, [setActiveNav])
 
   if (!isClient) return <></>
 
@@ -26,12 +24,10 @@ export const Navigation = () => {
 
   return (
     <nav className="flex justify-evenly mt-auto py-4 border-t border-solid border-gray-200">
-      <IconButton icon="chat" isActive={isChatActive} onClick={switchToChat}>
+      <IconButton icon="chat" isActive={isChatActive} onClick={() => setActiveNav('chat')}>
         Chat
       </IconButton>
-      <form className="flex flex-col justify-center my-auto" action={signOut}>
-        <IconButton icon="sign-out">Sign Out</IconButton>
-      </form>
+      {children}
     </nav>
   )
 }

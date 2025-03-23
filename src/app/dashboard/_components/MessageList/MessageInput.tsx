@@ -1,10 +1,9 @@
 'use client'
 
 import { useState, useCallback, memo } from 'react'
-import { createPortal } from 'react-dom'
-import { MdSend, MdHighlightOff } from 'react-icons/md'
-import * as Toast from '@radix-ui/react-toast'
+import { MdSend } from 'react-icons/md'
 import { useLiveChat, useClient, useMedia } from '@/src/hooks'
+import { Snackbar } from '@/src/components/Snackbar'
 
 interface Props {
   teamCode: string
@@ -42,13 +41,6 @@ export const MessageInput = memo(({ teamCode, userId }: Props) => {
     if (lines.length < 6) setLineLength(lines.length)
   }, [])
 
-  const closeToast = useCallback(async (open: boolean) => {
-    if (open) return
-    setOpenToast(false)
-    await new Promise((r) => setTimeout(r, 1000))
-    setError(undefined)
-  }, [])
-
   if (!isClient) return <></>
 
   const baseHeight = isSP ? 36 : 42
@@ -68,23 +60,7 @@ export const MessageInput = memo(({ teamCode, userId }: Props) => {
       >
         <MdSend size={24} onClick={sendMessage} />
       </button>
-      {isClient &&
-        createPortal(
-          <Toast.Provider swipeDirection="right">
-            <Toast.Root
-              open={openToast}
-              defaultOpen={false}
-              duration={2000}
-              onOpenChange={closeToast}
-              className="flex items-center gap-x-2 h-15 p-2 font-bold bg-white border-l-4 border-red-500 rounded-sm shadow-lg data-[state=open]:animate-toast-in data-[state=closed]:animate-toast-out"
-            >
-              <MdHighlightOff size={28} className="text-red-500" />
-              <Toast.Description>{error}</Toast.Description>
-            </Toast.Root>
-            <Toast.Viewport className="fixed bottom-5 right-5 min-w-80 z-10" />
-          </Toast.Provider>,
-          document.body
-        )}
+      <Snackbar open={openToast} text={error} setOpen={setOpenToast} />
     </div>
   )
 })
