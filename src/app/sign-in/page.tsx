@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { verifyIdToken } from '@/src/actions/auth'
-import { SignInForm } from '@/src/components'
+import { Form } from '@/src/components/SignIn/Form'
 import { fira } from '@/src/utils/font'
 
 export default async function Login() {
@@ -11,7 +11,7 @@ export default async function Login() {
     <div className="flex justify-center h-full animate-fade-in">
       <section className="flex flex-col justify-center gap-y-9 w-full min-w-80 max-w-120 my-6 p-8">
         <h1 className={`${fira.className} h-10 text-5xl font-bold text-center text-white`}>Live&thinsp;Chat</h1>
-        <SignInForm />
+        <Form />
       </section>
     </div>
   )

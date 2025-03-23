@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback, memo } from 'react'
 import { MdPerson, MdLock } from 'react-icons/md'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   onChange: (v: string) => void
 }
 
-export const UserIdInput = React.memo(({ name, value, onChange }: Props) => {
+export const UserIdInput = memo(({ name, value, onChange }: Props) => {
   const change = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.value)
@@ -32,7 +32,7 @@ export const UserIdInput = React.memo(({ name, value, onChange }: Props) => {
 
 UserIdInput.displayName = 'UserIdInput'
 
-export const PasswordInput = React.memo(({ name, value, onChange }: Props) => {
+export const PasswordInput = memo(({ name, value, onChange }: Props) => {
   const change = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.value)
