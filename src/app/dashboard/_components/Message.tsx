@@ -1,80 +1,19 @@
-'use client'
-
-import { memo, useCallback } from 'react'
 import Image from 'next/image'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import DotLoader from 'react-spinners/DotLoader'
 import moment from 'moment'
-import { useLiveChat, useThumbnail, useMedia } from '@/src/hooks'
+import { useMedia } from '@/src/hooks'
 import { formatISO8601 } from '@/src/utils/data'
-import { Message } from '@/src/types'
-
-interface MessagesProps {
-  teamCode: string
-  userId: string
-}
-
-export const Messages = memo(({ teamCode, userId }: MessagesProps) => {
-  const { messages, hasMoreMessage, loadPrevMessages } = useLiveChat(teamCode, userId)
-
-  const { thumbnails } = useThumbnail(teamCode)
-
-  const nextMessages = useCallback(() => {
-    loadPrevMessages?.()
-  }, [loadPrevMessages])
-
-  if (!thumbnails) return <></>
-
-  return (
-    <div
-      id="message-scroll"
-      className="flex w-full h-[calc(100vh-104px)] p-8 flex-col-reverse overflow-y-auto sm:h-[calc(100vh-90px)]"
-    >
-      {!messages ? (
-        <div className="flex flex-col items-center justify-center gap-x-5 h-full">
-          <DotLoader size={56} color="#0891b2" />
-        </div>
-      ) : (
-        <InfiniteScroll
-          dataLength={messages.length}
-          next={nextMessages}
-          hasMore={hasMoreMessage}
-          inverse={true}
-          loader={undefined}
-          scrollableTarget="message-scroll"
-          className="relative flex flex-col-reverse w-full max-w-320 mx-auto"
-        >
-          <div className="flex flex-col gap-y-3 pt-2 text-gray-700 sm:gap-x-5">
-            {messages.map((m, i) => (
-              <Content
-                key={m.created_at}
-                userId={userId}
-                content={m.content}
-                createdAt={m.created_at}
-                memberId={m.user_id}
-                prevContent={messages?.[i - 1]}
-                thumbnails={thumbnails}
-              />
-            ))}
-          </div>
-        </InfiniteScroll>
-      )}
-    </div>
-  )
-})
-
-Messages.displayName = 'Messages'
+import { Message as MessageType } from '@/src/types'
 
 interface ContentProps {
   userId: string
   content: string
   createdAt: string
   memberId: string
-  prevContent?: Message
+  prevContent?: MessageType
   thumbnails: { [key: string]: string }
 }
 
-const Content = ({ content, memberId, createdAt, prevContent, userId, thumbnails }: ContentProps) => {
+export const Message = ({ content, memberId, createdAt, prevContent, userId, thumbnails }: ContentProps) => {
   const date = formatISO8601(createdAt)
   const prevData = prevContent?.created_at && formatISO8601(prevContent.created_at)
 
