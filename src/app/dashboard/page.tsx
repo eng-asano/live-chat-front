@@ -1,7 +1,9 @@
 import { getUserInfo } from '@/src/actions/auth'
 import { Header } from './_containers/Header'
 import { Container } from './_components/Container'
-import { MessageList } from './_components/MessageList'
+import { MessageList } from './_containers/MessageList'
+import { MessageInput } from './_containers/MessageInput'
+import { InfiniteScroll } from './_components/InfiniteScroll'
 
 export default async function Rooms() {
   const user = await getUserInfo()
@@ -13,7 +15,10 @@ export default async function Rooms() {
   return (
     <Container>
       <Header />
-      <MessageList teamCode={teamCode} userId={userId} />
+      <InfiniteScroll teamCode={teamCode} userId={userId}>
+        <MessageList teamCode={teamCode} userId={userId} />
+      </InfiniteScroll>
+      <MessageInput teamCode={teamCode} userId={userId} />
     </Container>
   )
 }

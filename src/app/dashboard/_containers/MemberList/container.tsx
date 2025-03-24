@@ -1,9 +1,8 @@
 'use client'
 
-import { memo } from 'react'
-import { Member } from './Member'
 import { useLiveChat, useThumbnail } from '@/src/hooks'
 import { UserInfo } from '@/src/types/cognito'
+import { MemberListPresentation } from './presentation'
 
 interface MembersProps {
   teamCode: string
@@ -11,7 +10,7 @@ interface MembersProps {
   members: UserInfo[]
 }
 
-export const MemberList = memo(({ teamCode, userId, members }: MembersProps) => {
+export const MemberListContainer = ({ teamCode, userId, members }: MembersProps) => {
   const { activeUserIds } = useLiveChat(teamCode, userId)
 
   const { thumbnails } = useThumbnail(teamCode)
@@ -29,18 +28,5 @@ export const MemberList = memo(({ teamCode, userId, members }: MembersProps) => 
 
   if (!thumbnails) return <></>
 
-  return (
-    <div className="flex flex-col gap-y-8 mt-6 -mr-3 pb-3 pr-3 overflow-y-auto">
-      {sortedMembers.map((m) => (
-        <Member
-          key={m['cognito:username']}
-          info={m}
-          img={thumbnails[m['cognito:username']]}
-          isActive={activeUserIds.includes(m['cognito:username'])}
-        />
-      ))}
-    </div>
-  )
-})
-
-MemberList.displayName = 'MemberList'
+  return <MemberListPresentation activeUserIds={activeUserIds} thumbnails={thumbnails} members={sortedMembers} />
+}

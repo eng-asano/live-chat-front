@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation'
 import { verifyIdToken, getUserInfo, getMembersInfo } from '@/src/actions/auth'
-import { Profile } from './_components/Profile'
-import { MemberList } from './_components/MemberList'
-import { Navigation } from './_components/Navigation'
-import { SignOut } from './_components/Navigation/SignOut'
+import { MemberList } from './_containers/MemberList'
+import { Profile } from './_containers/Profile'
+import { Navigation } from './_containers/Navigation'
+import { SignOut } from './_components/SignOut'
 import { fira } from '@/src/utils/font'
 
 interface Props {
@@ -15,13 +15,13 @@ export default async function RoomsLayout({ children }: Readonly<Props>) {
 
   if (res.status === 'error') redirect('/sign-in')
 
-  const user = await getUserInfo()
+  const userPromise = getUserInfo()
+  const membersPromise = getMembersInfo()
+
+  const [user, members] = await Promise.all([userPromise, membersPromise])
+
   const teamCode = user?.['custom:team_code']
   const userId = user?.['cognito:username']
-
-  if (!teamCode || !userId) return <></>
-
-  const members = await getMembersInfo()
 
   return (
     <div className="flex animate-fade-in">
@@ -30,7 +30,7 @@ export default async function RoomsLayout({ children }: Readonly<Props>) {
         <Profile />
         <hr className="my-6 border-gray-100" />
         <h2 className="text-lg font-bold">Members</h2>
-        <MemberList teamCode={teamCode} userId={userId} members={members} />
+        {teamCode && userId && <MemberList teamCode={teamCode} userId={userId} members={members} />}
         <Navigation>
           <SignOut />
         </Navigation>

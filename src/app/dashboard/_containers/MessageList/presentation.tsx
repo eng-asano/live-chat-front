@@ -1,12 +1,12 @@
-import { Messages } from './Messages'
-import { MessageInput } from './MessageInput'
+import { Messages } from '../../_components/MessageList/Messages'
+import { MessageInput } from '../../_components/MessageList/MessageInput'
 
 interface Props {
   teamCode: string
   userId: string
 }
 
-export const MessageList = ({ teamCode, userId }: Props) => {
+export const MessageListPresentation = ({ teamCode, userId }: Props) => {
   return (
     <div>
       <Messages teamCode={teamCode} userId={userId} />

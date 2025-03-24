@@ -1,17 +1,16 @@
 'use client'
 
-import { useAtom } from 'jotai'
-import { activeNavAtom } from '@/src/store'
+import { ActiveNavAtomType } from '@/src/store'
 import { useClient, useMedia } from '@/src/hooks'
-import { IconButton } from './IconButton'
+import { IconButton } from '../../_components/IconButton'
 
 interface Props {
   children: React.ReactNode
+  activeNav: ActiveNavAtomType
+  onClick: () => void
 }
 
-export const Navigation = ({ children }: Props) => {
-  const [activeNav, setActiveNav] = useAtom(activeNavAtom)
-
+export const NavigationPresentation = ({ children, activeNav, onClick }: Props) => {
   const { isClient } = useClient()
 
   const { isSP } = useMedia()
@@ -24,7 +23,7 @@ export const Navigation = ({ children }: Props) => {
 
   return (
     <nav className="flex justify-evenly mt-auto py-4 border-t border-solid border-gray-200">
-      <IconButton icon="chat" isActive={isChatActive} onClick={() => setActiveNav('chat')}>
+      <IconButton icon="chat" isActive={isChatActive} onClick={onClick}>
         Chat
       </IconButton>
       {children}
